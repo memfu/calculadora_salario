@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">AE1_Calculadadora_salario_Fuentes</string>
+    <string name="salario_bruto_anual">Salario bruto anual</string>
+    <string name="datosSalario">Datos sobre el salario</string>
+    <string name="titleCalculadora">Calculadora de salario</string>
+    <string name="datosPersonales">Datos personales</string>
+    <string name="btnCalcular">Calcular salario neto</string>
+    <string name="horas">Horas</string>
+    <string name="_12_pagas">12 pagas</string>
+    <string name="_14_pagas">14 pagas</string>
+    <string name="children">Hijos/as</string>
+    <string name="g_discapacidad">Gº discapacidad</string>
+
+
+</resources>

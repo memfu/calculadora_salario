@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="background_app">#2C3E50</color>
+    <color name="background_component">#1D1E33</color>
+    <color name="background_component_selected">#03A9F4</color>
+    <color name="background_component_unselected">#FF111328</color>
+    <color name="buttons">#3498DB</color>
+    <color name="sections">#ECF0F1</color>
+    <color name="results">#1ABC9C</color>
+    <color name="hint">#637994</color>
+</resources>
