@@ -13,6 +13,9 @@
         android:theme="@style/Theme.AE1_Calculadadora_salario_Fuentes"
         tools:targetApi="31">
         <activity
+            android:name=".ResultSalarioNeto"
+            android:exported="false" />
+        <activity
             android:name=".Prueba"
             android:exported="false" />
         <activity

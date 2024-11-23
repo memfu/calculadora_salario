@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/background_app">
+    android:background="@color/background_app"
+    android:padding="16dp"
+    >
 
 
     <TextView
@@ -388,5 +390,5 @@
     android:text="@string/btnCalcular"
     android:backgroundTint="@color/buttons"
     />
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,8 @@
     <string name="_14_pagas">14 pagas</string>
     <string name="children">Hijos/as</string>
     <string name="g_discapacidad">Gº discapacidad</string>
+    <string name="tituloResultado">Tu salario neto</string>
+    <string name="recalculate">Recalcular Salario Neto</string>
 
 
 </resources>
