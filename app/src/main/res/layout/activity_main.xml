@@ -67,8 +67,9 @@
                 android:id="@+id/etSalario"
                 android:layout_width="86dp"
                 android:layout_height="27dp"
-                android:background="@color/white"
+                android:background="@color/sections"
                 android:inputType="number"
+                android:maxLength="6"
                 android:textColor="@color/black"
                 android:textColorHint="@color/hint"
                 android:textSize="18sp"
@@ -86,14 +87,14 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:entries="@array/tiposContrato"
-            android:background="@color/white"
+            android:background="@color/sections"
             />
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvHoras"
-        android:layout_width="150dp"
+        android:layout_width="120dp"
         android:layout_height="120dp"
         app:cardCornerRadius="16dp"
         app:cardBackgroundColor="@color/background_component"
@@ -137,19 +138,23 @@
                 android:layout_marginEnd="8dp"
                 >
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <ImageButton
                     android:id="@+id/btnSubHours"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/decre"
+                    android:layout_marginEnd="10dp"
                     android:src="@drawable/baseline_remove_12"
+                    app:tint="@color/background_component"
                     />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <ImageButton
                     android:id="@+id/btnPlusHours"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/inc"
                     android:src="@drawable/baseline_add_12"
+                    app:tint="@color/background_component"
                     />
 
             </LinearLayout>
@@ -240,7 +245,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:entries="@array/estadoCivil"
-            android:background="@color/white"
+            android:background="@color/sections"
             />
 
         <Spinner
@@ -252,21 +257,103 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:entries="@array/comunidadesAutonomas"
-            android:background="@color/white"
+            android:background="@color/sections"
+            />
+
+        <Spinner
+            android:id="@+id/spGrupoProf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:entries="@array/grupos_profesionales"
+            android:background="@color/sections"
             />
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvHijos"
-        android:layout_width="150dp"
-        android:layout_height="120dp"
+        android:id="@+id/cvEdad"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         app:cardCornerRadius="16dp"
         app:cardBackgroundColor="@color/background_component"
         app:layout_constraintTop_toBottomOf="@+id/cvDPersonales"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cvHijos"
+        app:layout_constraintBottom_toTopOf="@+id/btnCalcular"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/age"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                />
+            <TextView
+                android:id="@+id/tvEdad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="0"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_margin="8dp"
+                >
+
+                <ImageButton
+                    android:id="@+id/btnSubAge"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/decre"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/baseline_remove_12"
+                    app:tint="@color/background_component"
+                    />
+
+                <ImageButton
+                    android:id="@+id/btnPlusAge"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/inc"
+                    android:src="@drawable/baseline_add_12"
+                    app:tint="@color/background_component"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvHijos"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="@color/background_component"
+        app:layout_constraintTop_toBottomOf="@+id/cvDPersonales"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintStart_toEndOf="@id/cvEdad"
         app:layout_constraintEnd_toStartOf="@+id/cvDiscapacidad"
         app:layout_constraintBottom_toTopOf="@+id/btnCalcular"
         >
@@ -296,25 +383,29 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_margin="8dp"
                 >
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <ImageButton
                     android:id="@+id/btnSubChildren"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/decre"
+                    android:layout_marginEnd="10dp"
                     android:src="@drawable/baseline_remove_12"
+                    app:tint="@color/background_component"
                     />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <ImageButton
                     android:id="@+id/btnPlusChildren"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/inc"
                     android:src="@drawable/baseline_add_12"
+                    app:tint="@color/background_component"
                     />
 
             </LinearLayout>
@@ -325,8 +416,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvDiscapacidad"
-        android:layout_width="150dp"
-        android:layout_height="120dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         app:cardCornerRadius="16dp"
         app:cardBackgroundColor="@color/background_component"
         app:layout_constraintTop_toBottomOf="@+id/cvDPersonales"
@@ -362,25 +453,29 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_margin="8dp"
                 >
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <ImageButton
                     android:id="@+id/btnSubDiscap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/decre"
+                    android:layout_marginEnd="10dp"
                     android:src="@drawable/baseline_remove_12"
+                    app:tint="@color/background_component"
                     />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <ImageButton
                     android:id="@+id/btnPlusDiscap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/inc"
                     android:src="@drawable/baseline_add_12"
+                    app:tint="@color/background_component"
                     />
 
             </LinearLayout>

@@ -8,15 +8,31 @@
     <string name="horas">Horas</string>
     <string name="_12_pagas">12 pagas</string>
     <string name="_14_pagas">14 pagas</string>
+    <string name="age">Edad</string>
     <string name="children">Hijos/as</string>
-    <string name="g_discapacidad">Gº discapacidad</string>
+    <string name="g_discapacidad">Discapacidad</string>
     <string name="tituloResultado">Tu salario neto es de: </string>
     <string name="recalculate">Recalcular Salario Neto</string>
+    <string name="decre">Disminuir</string>
+    <string name="inc">Aumentar</string>
+
     <string-array name="tiposContrato">
         <item>Indefinido</item>
         <item>Temporal</item>
         <item>Fijo-discontinuo</item>
         <item>Formativo</item>
+    </string-array>
+    <string-array name="grupos_profesionales">
+        <item>Directivos</item>
+        <item>Cuadro técnico</item>
+        <item>Mandos intermedios</item>
+        <item>Empleados administrativos</item>
+        <item>Comerciales</item>
+        <item>Operarios cualificados</item>
+        <item>Operarios no cualificados</item>
+        <item>Personal de servicios</item>
+        <item>Prácticas o formación</item>
+        <item>Otros</item>
     </string-array>
     <string-array name="estadoCivil">
         <item>Soltero/a sin responsabilidades</item>

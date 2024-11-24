@@ -22,14 +22,17 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
     private var salarioBruto: Int? = 0
     private var salarioNeto: Double? = 0.0
     private var contratoSeleccionado: String = "Tipo de contrato"
+    private var grupProfSeleccionado: String = "Grupo profesional"
     private var estadoSeleccionado: String = "Estado civil"
     private var comunidadSeleccionada: String = "Comunidad autónoma"
 
     private var nrPagas: Int = 0
 
     private var currentHoras: Int = 40
+    private var currentAge: Int = 35
     private var currentChildren: Int = 0
     private var currentDiscapacidad: Int = 0
+
 
 
     // Creación de un companion object, que es un accesible desde todas las activities
@@ -61,6 +64,7 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
 
 
     private fun initUI() {
+        this.setAge()
         this.setHoras()
         this.setChildren()
         this.setDiscapacidad()
@@ -70,6 +74,8 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
     private fun initListeners() {
         binding.btnSubHours.setOnClickListener(this)
         binding.btnPlusHours.setOnClickListener(this)
+        binding.btnSubAge.setOnClickListener(this)
+        binding.btnPlusAge.setOnClickListener(this)
         binding.btnSubChildren.setOnClickListener(this)
         binding.btnPlusChildren.setOnClickListener(this)
         binding.btnSubDiscap.setOnClickListener(this)
@@ -77,6 +83,7 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
         binding.btnCalcular.setOnClickListener(this)
 
         this.setHoras()
+        this.setAge()
         this.setChildren()
         this.setDiscapacidad()
         this.setupButtonListeners()
@@ -86,6 +93,11 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
     private fun setPagas() {
         binding.rbtn12.isChecked = true
         nrPagas = 12
+    }
+
+    private fun setAge() {
+        binding.tvEdad.text = this.currentAge.toString()
+        binding.btnSubAge.isEnabled = this.currentAge > 0
     }
 
     private fun setHoras() {
@@ -133,7 +145,6 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
         }
         tasaIRPF -= ajusteEstadoCivil
 
-
         // Ajustes por número de hijos
         tasaIRPF -= currentChildren * 1.0 // Cada hijo reduce 1%
 
@@ -143,6 +154,30 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
             currentDiscapacidad > 65 -> 3.0
             else -> 0.0
         }
+
+        // Ajustes por edad
+        tasaIRPF -= when {
+            currentAge < 25 -> 2.0 // Menores de 25 años tienen deducción adicional
+            currentAge in 25..35 -> 1.0 // Jóvenes hasta 35 años tienen menor deducción
+            currentAge > 65 -> 3.0 // Mayores de 65 años tienen mayores beneficios fiscales
+            else -> 0.0
+        }
+
+        // Ajustes por grupo profesional
+        val ajusteGrupoProfesional = when (grupProfSeleccionado) {
+            "Directivos" -> 0.0 // Sin ajustes específicos para directivos
+            "Cuadro técnico" -> -0.5 // Deducción ligera para cuadros técnicos
+            "Mandos intermedios" -> -1.0 // Ajuste moderado para mandos intermedios
+            "Empleados administrativos" -> -1.5 // Deducción mayor para administrativos
+            "Comerciales" -> -1.0
+            "Operarios cualificados" -> -2.0 // Mayor deducción por ingresos más bajos
+            "Operarios no cualificados" -> -2.5 // Mayor deducción por nivel profesional más bajo
+            "Personal de servicios" -> -2.0
+            "Prácticas o formación" -> -3.0 // Máxima deducción para becarios y prácticas
+            "Otros" -> 0.0
+            else -> 0.0
+        }
+        tasaIRPF -= ajusteGrupoProfesional
 
         // Ajustes por Comunidad Autónoma (ejemplo simplificado)
         tasaIRPF -= when (comunidadSeleccionada) {
@@ -188,6 +223,18 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
                 setHoras()
             }
 
+            binding.btnSubAge.id -> {
+                if (currentAge > 0) {
+                    this.currentAge -= 1
+                    setAge()
+                }
+            }
+
+            binding.btnPlusAge.id -> {
+                this.currentAge += 1
+                setAge()
+            }
+
             binding.btnSubChildren.id -> {
                 if (currentChildren > 0) {
                     this.currentChildren -= 1
@@ -220,6 +267,7 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
                     contratoSeleccionado = binding.spTipoContrato.selectedItem.toString()
                     estadoSeleccionado = binding.spEstadoCivil.selectedItem.toString()
                     comunidadSeleccionada = binding.spComAuton.selectedItem.toString()
+                    grupProfSeleccionado = binding.spGrupoProf.selectedItem.toString()
                     currentHoras = binding.tvHoras.text.toString().toIntOrNull() ?: 0
                     currentChildren = binding.tvChildren.text.toString().toIntOrNull() ?: 0
                     currentDiscapacidad = binding.tvDiscapacidad.text.toString().toIntOrNull() ?: 0
@@ -270,8 +318,10 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     handler.post(startIncrementing {
-                        currentHoras += 1
-                        setHoras()
+                        if (currentHoras < 100){
+                            currentHoras += 1
+                            setHoras()
+                        }
                     })
                 }
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
@@ -299,13 +349,51 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
             true
         }
 
+        // Botón de incrementar edad
+        binding.btnPlusAge.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    handler.post(startIncrementing {
+                        if(currentAge < 99) {
+                            currentAge += 1
+                            setAge()
+                        }
+                    })
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    handler.removeCallbacksAndMessages(null) // Detén la acción
+                }
+            }
+            true
+        }
+
+        // Botón de decrementar edad
+        binding.btnSubAge.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    handler.post(startIncrementing {
+                        if (currentAge > 0) {
+                            currentAge -= 1
+                            setAge()
+                        }
+                    })
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    handler.removeCallbacksAndMessages(null) // Detén la acción
+                }
+            }
+            true
+        }
+
         // Botón de incrementar hijos
         binding.btnPlusChildren.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     handler.post(startIncrementing {
-                        currentChildren += 1
-                        setChildren()
+                        if (currentChildren < 20) {
+                            currentChildren += 1
+                            setChildren()
+                        }
                     })
                 }
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
