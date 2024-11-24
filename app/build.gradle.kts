@@ -4,14 +4,14 @@ plugins {
 }
 
 android {
-    namespace = "com.unirfp.ae1_calculadadora_salario_fuentes"
+    namespace = "com.unirfp.ae1_calculadora_salario_fuentes"
     compileSdk = 35
     viewBinding {
         enable = true
     }
 
     defaultConfig {
-        applicationId = "com.unirfp.ae1_calculadadora_salario_fuentes"
+        applicationId = "com.unirfp.ae1_calculadora_salario_fuentes"
         minSdk = 29
         targetSdk = 34
         versionCode = 1

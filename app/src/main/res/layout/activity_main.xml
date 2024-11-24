@@ -68,10 +68,11 @@
                 android:layout_width="86dp"
                 android:layout_height="27dp"
                 android:background="@color/white"
-                android:inputType="text"
+                android:inputType="number"
                 android:textColor="@color/black"
                 android:textColorHint="@color/hint"
                 android:textSize="18sp"
+                android:textAlignment="textEnd"
                 android:layout_marginEnd="50dp"
                 />
         </LinearLayout>
@@ -84,6 +85,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:entries="@array/tiposContrato"
+            android:background="@color/white"
             />
 
     </androidx.cardview.widget.CardView>
@@ -175,9 +178,13 @@
             android:gravity="center"
             >
             <RadioGroup
+                android:id="@+id/radioGroupPagas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:checkedButton="@+id/rbtn_12"
+                >
+
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/rbtn_12"
@@ -232,6 +239,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:entries="@array/estadoCivil"
+            android:background="@color/white"
             />
 
         <Spinner
@@ -242,6 +251,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:entries="@array/comunidadesAutonomas"
+            android:background="@color/white"
             />
 
     </androidx.cardview.widget.CardView>

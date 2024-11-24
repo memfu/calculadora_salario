@@ -1,4 +1,4 @@
-package com.unirfp.ae1_calculadadora_salario_fuentes
+package com.unirfp.ae1_calculadora_salario_fuentes
 
 import org.junit.Test
 

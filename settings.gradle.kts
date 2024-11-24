@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AE1_Calculadadora_salario_Fuentes"
+rootProject.name = "AE1_Calculadora_salario_Fuentes"
 include(":app")
  

@@ -10,26 +10,15 @@
     android:padding="32dp"
 
     >
-    <TextView
-        android:id="@+id/tvTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tituloResultado"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvResultado"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginVertical="32dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="80dp"
         app:cardCornerRadius="16dp"
         app:cardBackgroundColor="@color/background_component"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitulo"
         app:layout_constraintBottom_toTopOf="@id/btnRecalc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,13 +33,23 @@
             >
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tituloResultado"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"
+                />
+
+            <TextView
                 android:id="@+id/tvResultado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Salario final dummy"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/results"
                 />
 
         </LinearLayout>
@@ -61,7 +60,6 @@
         android:id="@+id/btnRecalc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/cvResultado"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

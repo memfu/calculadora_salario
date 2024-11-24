@@ -10,16 +10,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AE1_Calculadadora_salario_Fuentes"
+        android:theme="@style/Theme.AE1_Calculadora_salario_Fuentes"
         tools:targetApi="31">
         <activity
             android:name=".ResultSalarioNeto"
-            android:exported="false" />
-        <activity
-            android:name=".Prueba"
-            android:exported="false" />
-        <activity
-            android:name=".ResultIMCActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
