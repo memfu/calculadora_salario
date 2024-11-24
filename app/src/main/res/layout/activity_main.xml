@@ -440,7 +440,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/g_discapacidad"
                 android:textColor="@color/white"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 />
             <TextView
                 android:id="@+id/tvDiscapacidad"
