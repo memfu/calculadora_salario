@@ -15,6 +15,8 @@
     <string name="recalculate">Recalcular Salario Neto</string>
     <string name="decre">Disminuir</string>
     <string name="inc">Aumentar</string>
+    <string name="retencion">Retención de IRPF</string>
+    <string name="deducciones">Posibles deducciones</string>
 
     <string-array name="tiposContrato">
         <item>Indefinido</item>

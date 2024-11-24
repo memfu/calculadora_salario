@@ -21,10 +21,10 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
     // Creación de los atributos necesarios para la lógica de nuestros componentes
     private var salarioBruto: Int? = 0
     private var salarioNeto: Double? = 0.0
-    private var contratoSeleccionado: String = "Tipo de contrato"
-    private var grupProfSeleccionado: String = "Grupo profesional"
-    private var estadoSeleccionado: String = "Estado civil"
-    private var comunidadSeleccionada: String = "Comunidad autónoma"
+    private var contratoSeleccionado: String = ""
+    private var grupProfSeleccionado: String = ""
+    private var estadoSeleccionado: String = ""
+    private var comunidadSeleccionada: String = ""
 
     private var nrPagas: Int = 0
 
@@ -33,11 +33,16 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
     private var currentChildren: Int = 0
     private var currentDiscapacidad: Int = 0
 
+    private var retencionIRPF: Double = 0.0
+    private var deducciones: Double = 0.0
 
 
     // Creación de un companion object, que es un accesible desde todas las activities
     companion object{
         const val Salario_KEY = "Resultado_Salario"
+        const val Bruto_KEY = "Salario_Bruto_Anual"
+        const val Retencion_KEY = "Retencion_IRPF"
+        const val Deducciones_KEY = "Deducciones"
     }
 
 
@@ -149,19 +154,21 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
         tasaIRPF -= currentChildren * 1.0 // Cada hijo reduce 1%
 
         // Ajustes por discapacidad
-        tasaIRPF -= when {
+        val ajusteDiscapacidad = when {
             currentDiscapacidad in 33..65 -> 2.0
             currentDiscapacidad > 65 -> 3.0
             else -> 0.0
         }
+        tasaIRPF -= ajusteDiscapacidad
 
         // Ajustes por edad
-        tasaIRPF -= when {
+        val ajusteEdad = when {
             currentAge < 25 -> 2.0 // Menores de 25 años tienen deducción adicional
             currentAge in 25..35 -> 1.0 // Jóvenes hasta 35 años tienen menor deducción
             currentAge > 65 -> 3.0 // Mayores de 65 años tienen mayores beneficios fiscales
             else -> 0.0
         }
+        tasaIRPF -= ajusteEdad
 
         // Ajustes por grupo profesional
         val ajusteGrupoProfesional = when (grupProfSeleccionado) {
@@ -180,16 +187,20 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
         tasaIRPF -= ajusteGrupoProfesional
 
         // Ajustes por Comunidad Autónoma (ejemplo simplificado)
-        tasaIRPF -= when (comunidadSeleccionada) {
+        val ajusteComAuton = when (comunidadSeleccionada) {
             "Madrid", "Canarias" -> 1.0 // Beneficio fiscal de 1% en estas comunidades
             else -> 0.0
         }
+        tasaIRPF -= ajusteComAuton
 
         // Asegurar que la tasa IRPF no sea negativa
         if (tasaIRPF < 0.0) tasaIRPF = 0.0
 
+        // Deducciones
+        deducciones = ajusteEstadoCivil + (currentChildren * 1.0)  + ajusteDiscapacidad + ajusteEdad + ajusteGrupoProfesional + ajusteComAuton
+
         // Retención IRPF
-        val retencionIRPF = baseIRPF * (tasaIRPF / 100) * nrPagas
+        retencionIRPF = baseIRPF * (tasaIRPF / 100) * nrPagas
 
         // Salario Neto con formato de dos decimales
         val df = DecimalFormat("#.##")
@@ -197,13 +208,16 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
         return salarioNeto as Double
     }
 
-    private fun navigateToResult(resultadoSalario: Double) {
+    private fun navigateToResult(resultadoSalario: Double, salarioBruto: Int, retenciones: Double, deducciones: Double) {
         // Creamos la navegación entre pantallas con el object intent desde esta ventana (this) a la ResultSalarioNeto
         val intent = Intent(this,ResultSalarioNeto::class.java)
 
-        // Agregamos el extra para pasar el result del salario neto a la pantalla: le pasamos una clave (Salario_KEY) y el valor
+        // Agregamos el extra para pasar el result del salario neto a la pantalla: le pasamos una clave y el valor
         // En lugar de pasarle un string directamente, creamos un objeto companion
         intent.putExtra(Salario_KEY, resultadoSalario)
+        intent.putExtra(Bruto_KEY, salarioBruto)
+        intent.putExtra(Retencion_KEY, retenciones)
+        intent.putExtra(Deducciones_KEY, deducciones)
 
         this.startActivity(intent)
     }
@@ -273,7 +287,7 @@ class MainActivity : AppCompatActivity(), OnClickListener, RadioGroup.OnCheckedC
                     currentDiscapacidad = binding.tvDiscapacidad.text.toString().toIntOrNull() ?: 0
                     salarioNeto = calcularNeto()
                     // navega a la siguiente pantalla
-                    navigateToResult(salarioNeto!!)
+                    navigateToResult(salarioNeto!!, salarioBruto!!, retencionIRPF, deducciones)
                 } else {
                     binding.etSalario.error = "Por favor, ingresa un sueldo mayor que 0."
                     return

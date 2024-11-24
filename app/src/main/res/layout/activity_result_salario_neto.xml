@@ -13,13 +13,10 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvResultado"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="80dp"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
         app:cardCornerRadius="16dp"
         app:cardBackgroundColor="@color/background_component"
-        app:layout_constraintBottom_toTopOf="@id/btnRecalc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         >
@@ -52,7 +49,120 @@
                 android:textColor="@color/results"
                 />
 
+
+
         </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvInfos"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        app:layout_constraintTop_toBottomOf="@+id/cvResultado"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="80dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="@color/background_component"
+        app:layout_constraintBottom_toTopOf="@id/btnRecalc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="16dp"
+                >
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/salario_bruto_anual"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="left"
+                    />
+
+                <TextView
+                    android:id="@+id/tvResultBruto"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    tools:text="Brutto dummy"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:gravity="right"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="16dp"
+                >
+                <TextView
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/retencion"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:gravity="left"
+                    />
+
+                <TextView
+                    android:id="@+id/tvResultRetenciones"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    tools:text="Retencion dummy"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:gravity="right"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="16dp"
+                >
+                <TextView
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/deducciones"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:gravity="left"
+                    />
+
+                <TextView
+                    android:id="@+id/tvResultDeduccion"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    tools:text="Deduccion dummy"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:gravity="right"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
 
     </androidx.cardview.widget.CardView>
 
